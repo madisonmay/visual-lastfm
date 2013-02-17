@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1.centered.larger= title
+  div.centered
+    a.btn.btn-success.btn-large(href="http://www.last.fm/api/auth/?api_key=1713b5c9376c897dfa50a9a3ec2be3bf&cb=http://localhost:3000/home") Login
+
+  div.chart_body
+  script(src="/javascripts/chart.js")

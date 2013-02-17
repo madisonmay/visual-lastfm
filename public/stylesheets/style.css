@@ -1,0 +1,33 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.chart_body {
+    text-align: center;
+    margin-top: 100px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+* {
+    /*outline: 2px solid red;*/
+}
+
+.centered {
+    margin: auto;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.larger {
+    font-size: 100px;
+}
+
+.chart rect {
+  stroke: white;
+  margin-left: 500px;
+  margin-right: 500px;
+}

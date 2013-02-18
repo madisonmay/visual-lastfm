@@ -7,7 +7,13 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , LastFmNode = require('lastfm').LastFmNode;
+
+var lastfm = new LastFmNode({
+  api_key: '1713b5c9376c897dfa50a9a3ec2be3bf',
+  secret: '9f5b5df6fdc3caee40581ba5561685a5'
+});
 
 var app = express();
 
@@ -31,7 +37,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/home', user.home)
+app.get('/login', user.login)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

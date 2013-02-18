@@ -4,5 +4,6 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Visual Last.fm' });
+    req.session.token = ''
+    res.render('index', { title: 'Visual Last.fm' });
 };

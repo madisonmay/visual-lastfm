@@ -1,6 +1,19 @@
 extends layout
 
 block content
+
+  .navbar.navbar-inverse.navbar-fixed-top
+    .navbar-inner
+      .container
+        button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.brand(href='#') Visual Last.fm
+        .nav-collapse.collapse
+          ul.nav.pull-right
+            li.active
+              a(href="http://www.last.fm/api/auth/?api_key=1713b5c9376c897dfa50a9a3ec2be3bf&cb=http://localhost:3000/login") Login
   h1.centered.larger= title
   div.centered
     a.btn.btn-success.btn-large(href="http://www.last.fm/api/auth/?api_key=1713b5c9376c897dfa50a9a3ec2be3bf&cb=http://localhost:3000/login") Login

@@ -5,5 +5,5 @@
 
 exports.index = function(req, res){
     req.session.token = ''
-    res.render('index', { title: 'Visual Last.fm' });
+    res.render('index', { title: 'Visual last.fm', logged_in: true });
 };

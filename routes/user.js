@@ -45,6 +45,11 @@ function auth(session, req, res){
 }
 
 exports.artists = function(req, res){
+    var query = "user.getTopArtists";
+    return getData(req, res, query);
+};
+
+function getData(req, res, query){
     var request = lastfm.request("user.getTopArtists", {
         user: req.session.user.user,
         handlers: {
@@ -54,7 +59,7 @@ exports.artists = function(req, res){
                 var counts = Array();
                 var names = Array();
                 for (i=0; i<topartists.length; i++) {
-                    artists.push([topartists[i].name, topartists[i].playcount])
+                    artists.push([topartists[i].name, topartists[i].playcount]);
                     counts.push([topartists[i].playcount]);
                     a = topartists[i].name;
                     a = a.replace(/'/g, "\\'").replace(/&/g, "and");

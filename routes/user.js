@@ -47,15 +47,31 @@ function auth(session, req, res){
 exports.artists = function(req, res){
     var query = "user.getTopArtists";
     var label = "Artists";
-    return getData(req, res, query, label);
+    var querystring = "data.topartists.artist";
+    return getData(req, res, query, label, querystring);
 };
 
-function getData(req, res, query, label){
+exports.albums = function(req, res){
+    var query = "user.getTopAlbums";
+    var label = "Albums";
+    var querystring = "data.topalbums.album";
+    return getData(req, res, query, label, querystring);
+};
+
+exports.songs = function(req, res){
+    var query = "user.getTopTracks";
+    var label = "Songs";
+    var querystring = "data.toptracks.track";
+    return getData(req, res, query, label, querystring);
+};
+
+
+function getData(req, res, query, label, querystring){
     var request = lastfm.request(query, {
         user: req.session.user.user,
         handlers: {
             success: function(data) {
-                var topartists = data.topartists.artist;
+                var topartists = eval(querystring);
                 var artists = Array();
                 var counts = Array();
                 var names = Array();
@@ -68,62 +84,6 @@ function getData(req, res, query, label){
                 }
                 console.log(artists);
                 req.session.artists = topartists;
-                res.render('home', {title: 'Visual last.fm', counts: counts, names: names, label: label, logged_in: true});
-            },
-            error: function(error) {
-                console.log("Error: " + error.message);
-            }
-        }
-    });
-}
-
-exports.albums = function(req, res){
-    var request = lastfm.request("user.getTopAlbums", {
-        user: req.session.user.user,
-        handlers: {
-            success: function(data) {
-                var topalbums = data.topalbums.album;
-                var albums = Array();
-                var counts = Array();
-                var names = Array();
-                for (i=0; i<topalbums.length; i++) {
-                    albums.push([topalbums[i].name, topalbums[i].playcount])
-                    counts.push([topalbums[i].playcount]);
-                    a = topalbums[i].name;
-                    a = a.replace(/'/g, "\\'").replace(/&/g, "and");
-                    names.push(["\'" + a + "\'"]);
-                }
-                console.log(albums);
-                var label = "Albums";
-                req.session.albums = topalbums;
-                res.render('home', {title: 'Visual last.fm', counts: counts, names: names, label: label, logged_in: true});
-            },
-            error: function(error) {
-                console.log("Error: " + error.message);
-            }
-        }
-    });
-}
-
-exports.songs = function(req, res){
-    var request = lastfm.request("user.getTopTracks", {
-        user: req.session.user.user,
-        handlers: {
-            success: function(data) {
-                var toptracks = data.toptracks.track;
-                var tracks = Array();
-                var counts = Array();
-                var names = Array();
-                for (i=0; i<toptracks.length; i++) {
-                    tracks.push([toptracks[i].name, toptracks[i].playcount])
-                    counts.push([toptracks[i].playcount]);
-                    a = toptracks[i].name;
-                    a = a.replace(/'/g, "\\'").replace(/&/g, "and");
-                    names.push(["\'" + a + "\'"]);
-                }
-                console.log(tracks);
-                var label = "Songs";
-                req.session.tracks = toptracks;
                 res.render('home', {title: 'Visual last.fm', counts: counts, names: names, label: label, logged_in: true});
             },
             error: function(error) {

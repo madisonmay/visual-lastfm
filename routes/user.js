@@ -46,11 +46,12 @@ function auth(session, req, res){
 
 exports.artists = function(req, res){
     var query = "user.getTopArtists";
-    return getData(req, res, query);
+    var label = "Artists";
+    return getData(req, res, query, label);
 };
 
-function getData(req, res, query){
-    var request = lastfm.request("user.getTopArtists", {
+function getData(req, res, query, label){
+    var request = lastfm.request(query, {
         user: req.session.user.user,
         handlers: {
             success: function(data) {
@@ -66,7 +67,6 @@ function getData(req, res, query){
                     names.push(["\'" + a + "\'"]);
                 }
                 console.log(artists);
-                var label = "Artists";
                 req.session.artists = topartists;
                 res.render('home', {title: 'Visual last.fm', counts: counts, names: names, label: label, logged_in: true});
             },

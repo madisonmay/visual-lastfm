@@ -71,19 +71,17 @@ function getData(req, res, query, label, querystring){
         user: req.session.user.user,
         handlers: {
             success: function(data) {
-                var topartists = eval(querystring);
-                var artists = Array();
+                var top = eval(querystring);
                 var counts = Array();
                 var names = Array();
-                for (i=0; i<topartists.length; i++) {
-                    artists.push([topartists[i].name, topartists[i].playcount]);
-                    counts.push([topartists[i].playcount]);
-                    a = topartists[i].name;
+                for (i=0; i<top.length; i++) {
+                    counts.push([top[i].playcount]);
+                    a = top[i].name;
                     a = a.replace(/'/g, "\\'").replace(/&/g, "and");
                     names.push(["\'" + a + "\'"]);
                 }
                 console.log(artists);
-                req.session.artists = topartists;
+                req.session.artists = top;
                 res.render('home', {title: 'Visual last.fm', counts: counts, names: names, label: label, logged_in: true});
             },
             error: function(error) {

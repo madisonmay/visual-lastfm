@@ -13,6 +13,10 @@ var arc = d3.svg.arc()
     .innerRadius(radius - 110)
     .outerRadius(radius - 20);
 
+var arc2 = d3.svg.arc()
+    .innerRadius(radius - 100)
+    .outerRadius(radius - 10);
+
 var svg = d3.select(".chart_body").append("svg")
     .attr("width", width)
     .attr("height", height)

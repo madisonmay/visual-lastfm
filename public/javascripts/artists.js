@@ -29,6 +29,7 @@ var path = svg.selectAll("path")
     .attr("fill", function(d, i) { return color(i); })
     .attr("base_color", function(d, i) { return color(i); })
     .attr("d", arc)
+    .attr("url_string", function(d, i) { return dataset.urls[i];})
     .attr("name", function(d, i) { return dataset.names[i]; })
     .attr("count", function(d, i) { return dataset.counts[i]; })
     .on("mouseover", function(){
@@ -40,4 +41,9 @@ var path = svg.selectAll("path")
     .on("mouseout", function(){
         d3.select(this).style("fill", function() { return d3.select(this).attr("base_color"); });
         $(".artist").html("");
+    })
+    .on("click", function(){
+        var url = d3.select(this).attr('url_string');
+        console.log("Click captured.")
+        window.location = url;
     });

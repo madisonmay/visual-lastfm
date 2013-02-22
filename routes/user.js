@@ -71,6 +71,7 @@ function getData(req, res, query, label, querystring){
         user: req.session.user.user,
         handlers: {
             success: function(data) {
+                var urls = Array();
                 var topartists = eval(querystring);
                 var artists = Array();
                 var counts = Array();
@@ -78,13 +79,14 @@ function getData(req, res, query, label, querystring){
                 for (i=0; i<topartists.length; i++) {
                     artists.push([topartists[i].name, topartists[i].playcount]);
                     counts.push([topartists[i].playcount]);
+                    urls.push(["\'" + topartists[i].url + "\'"]);
                     a = topartists[i].name;
                     a = a.replace(/'/g, "\\'").replace(/&/g, "and");
                     names.push(["\'" + a + "\'"]);
                 }
                 console.log(artists);
                 req.session.artists = topartists;
-                res.render('home', {title: 'Visual last.fm', counts: counts, names: names, label: label, logged_in: true});
+                res.render('home', {title: 'Visual last.fm', counts: counts, names: names, label: label, logged_in: true, urls: urls});
             },
             error: function(error) {
                 console.log("Error: " + error.message);
